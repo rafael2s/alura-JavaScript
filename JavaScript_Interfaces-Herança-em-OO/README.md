@@ -18,3 +18,12 @@
 - Evitando código muito complicado através da herança
 - Palavra-chave Super
 - Método e propriedades privadas e protegidas
+
+**AULA-03 - Classes abstratas**
+
+- Como o JS sabe quem está sendo instanciado
+- Pesando na proteção do nosso sistema
+- Lançando erros para o sistema
+- Classes abstratas
+- Métodos abstratos
+- Erros em tempo de execução
