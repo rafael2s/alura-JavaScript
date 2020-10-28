@@ -5,6 +5,7 @@ class NegociacaoController {
         this._inputData =  $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
+        this._listaNegociacoes = new ListaNegociacoes();
     }
 
     adiciona(event) {
@@ -12,28 +13,24 @@ class NegociacaoController {
 
         //let data = new Date(this._inputData.value.split('-'));
         //let data = new Date(this._inputData.value.replace(/-/g, ','));
-        let data = new Date(...
-            this._inputData.value
-            .split('-')
-            // FUNCTION NORMAL
-            // .map(function(item, indice){
-            //     // if(indice == 1){
-            //     //     return item - 1;
-            //     // }
-            //     return item - indice % 2;
-            // })
 
-            // ARROW FUNCTION
-            .map((item, indice) => item - indice % 2)
-        );
-
-        let negociacao = new Negociacao(
-            data,
-            this._inputQuantidade.value,
-            this._inputValor.value
-        )
-        console.log(negociacao);
+        this._listaNegociacoes.adiciona(this._criaNegociacao());
+        this._limpaFormulario();
+        console.log(this._listaNegociacoes.negociacoes); 
 
         // Adicionar a negociação a uma lista
     }
+    _criaNegociacao(){
+        return new Negociacao(
+            DateHelper.textoParaData(this._inputData.value),
+            this._inputQuantidade.value,
+            this._inputValor.value
+        );
+    }
+    _limpaFormulario(){
+        this._inputData.value = '';
+        this._inputQuantidade.value = 1;
+        this._inputValor.value = 0.0;
+        this._inputData.focus();
+    };
 }
