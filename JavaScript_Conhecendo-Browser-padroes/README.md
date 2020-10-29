@@ -41,3 +41,9 @@ Como o código da tabela ficou no JavaScript, a View precisou encontrar alguma f
 Nós ainda criamos o método _template(), utilizando a template string. Vimos que podemos gerar expressões mais "rebuscadas" para montar tags tr dinamicamente. Usamos novamente a função map() para transformar o conteúdo de um array. Além disso, utilizamos a função join() para poder concatenar todos os itens do array que equivalem às tags tr da tabela.
 
 **AULA-06 - Generalizando a solução da nossa view**
+
+Vimos que o código das Views NegociacoesView e MensagemView tinham trechos em comum. Nós isolamos tais partes dentro de uma classe, juntamente com o construtor que recebeu o elemento e o método update(). Depois, fizemos com que as duas Views herdassem da classe View, assim, não repetimos o código em comum. Mas coube às classes filhas implementarem o método template().
+
+Criamos ainda uma "armadilha" para evitar a possibilidade de que o desenvolvedor se esquecesse de incluir o método, incluindo uma mensagem de erro no Console. Lembrando que um método da classe filha sobrescreve métodos da classe pai.
+
+Depois, adicionamos o constructor() nas classes filhas com o super, que passava o parâmetro para a classe pai. Fizemos também um pequeno ajuste, retirando o prefixo _ do método template(), que anteriormente era privado. A alteração foi necessária porque os métodos template() de NegociacoesView e MensagemView precisavam sobrescrever o método em View.
