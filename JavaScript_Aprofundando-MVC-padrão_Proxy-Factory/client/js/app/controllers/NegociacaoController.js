@@ -31,6 +31,22 @@ class NegociacaoController {
         // Adicionar a negociação a uma lista
     }
 
+    importaNegociacoes(){
+        
+        let service = new NegociacaoService();
+
+        service.obterNegociacaoDaSemana((err, negociacoes) => {
+            if(err) {
+                this._mensagem.texto = err;
+                return;
+            }
+
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações importadas com sucesso';
+        });
+        
+    }
+
     apaga(){
 
         this._listaNegociacoes.esvazia();
