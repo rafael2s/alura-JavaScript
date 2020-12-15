@@ -86,6 +86,21 @@
                     console.log(e.target.error.name);
                 };
             };
+
+            ConnectionFactory
+                .getConnection()
+                .then(connection => {
+                    // usa a conexão
+                });
+            
+            ConnectionFactory
+                .getConnection()
+                .then(connection => {
+                    // A conexão tem que ser a mesma utilizada anteriormente
+                });
+
+                
+            
         </script>
 </body>
 </html>
