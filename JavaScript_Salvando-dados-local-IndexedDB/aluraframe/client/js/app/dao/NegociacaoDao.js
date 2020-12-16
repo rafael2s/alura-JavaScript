@@ -1,9 +1,10 @@
 class NegociacaoDao {
+
     constructor(connection) {
 
         this._connection = connection;
         this._store = 'negociacoes';
-    };
+    }
 
     adiciona(negociacao) {
 
@@ -17,16 +18,20 @@ class NegociacaoDao {
             request.onsuccess = e => {
 
                 resolve();
-            }
+            };
+
             request.onerror = e => {
-                
+
                 console.log(e.target.error);
-                reject('Não foi possível adicionar a negociação')
-            }            
+                reject('Não foi possível adicionar a negociação');
+
+            };
+
         });
-    };
+    }
 
     listaTodos() {
+
         return new Promise((resolve, reject) => {
 
             let cursor = this._connection
@@ -41,38 +46,46 @@ class NegociacaoDao {
                 let atual = e.target.result;
 
                 if(atual) {
-                    var dado = atual.value;
+
+                    let dado = atual.value;
 
                     negociacoes.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
 
                     atual.continue();
+
                 } else {
 
                     resolve(negociacoes);
                 }
+
             };
 
             cursor.onerror = e => {
-                console.log(e.target.error.name);
-                reject('Não foi possível listar as negociações')
+
+                console.log(e.target.error);
+                reject('Não foi possível listar as negociações');
             };
+
         });
     }
 
     apagaTodos() {
+
         return new Promise((resolve, reject) => {
-            
+
             let request = this._connection
                 .transaction([this._store], 'readwrite')
                 .objectStore(this._store)
                 .clear();
 
-            request.onsuccess = e => resolve('Negociações removidas com sucesso');
+            request.onsuccess = e => resolve('Negociações apagadas com sucesso');
 
             request.onerror = e => {
                 console.log(e.target.error);
-                reject('Não foi possível remover as negociações');
-            }
+                reject('Não foi possível apagar as negociações');
+            }; 
+
         });
+
     }
-};
+}
